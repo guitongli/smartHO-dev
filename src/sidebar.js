@@ -20,12 +20,17 @@ export default function Sidebar() {
         return state.current_user;
     });
     useEffect(() => {
-        db.collection("rooms").onSnapshot((snapshot) => {
+        db.collection("chat").onSnapshot((snapshot) => {
+            console.log('user email', user.email)
+            const ownDocs = snapshot.docs.filter((doc)=>{
+                return doc.data().sender === user.email || doc.data().getter===user.email
+            })
+            console.log('owndocs', ownDocs);
             dispatch(
                 putChannels(
-                    snapshot.docs.map((doc) => ({
+                    ownDocs.map((doc) => ({
                         id: doc.id,
-                        name: doc.data().name,
+                        name: doc.data().topic,
                     }))
                 )
             );
@@ -43,12 +48,7 @@ export default function Sidebar() {
                 </div>
                 <CreateIcon />
             </div>
-            <SidebarOption Icon={InsertCommentIcon} title="Threads" />
-            <hr />
-            <SidebarOption Icon={InboxIcon} title="Inbox" />
-            <SidebarOption Icon={ExpandMoreIcon} title="Show More" />
-            <SidebarOption Icon={PeopleAltIcon} title="People and groups" />
-            <SidebarOption Icon={ExpandMoreIcon} title="Show More" />
+            {/* <SidebarOption Icon={ExpandMoreIcon} title="Show More" /> */}
             {channels &&
                 channels.map((channel) => {
                     return (
@@ -56,6 +56,7 @@ export default function Sidebar() {
                             title={channel.name}
                             key={channel.id}
                             id={channel.id}
+                            Icon={InsertCommentIcon}
                         />
                     );
                 })}

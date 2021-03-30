@@ -6,7 +6,7 @@ import { useState } from "react";
 import Login from './login';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux';
-// import Face from './voice-recog';
+
 import VoiceText from './voice-text';
 import HandEmoji from './hand-emoji';
 export default function App() {
@@ -17,12 +17,12 @@ export default function App() {
     return (
         <div className="app">
             <Router>
-           {/* {user ? (  */}
+           {user ? ( 
                     <> 
-                         <VoiceText/>
-                         <HandEmoji/>
+                         {/* <VoiceText/> */}
+                         {/* <HandEmoji/> */}
                         <Header />
-                        {/* <Face /> */}
+                      
                         <div className="app__body">
                             <Sidebar />
                             <Switch>
@@ -35,9 +35,9 @@ export default function App() {
                             </Switch>
                         </div>
                     </> 
-                {/* ):(
+                ):(
                     <Login/>
-                )  */}
+                )  
                 } 
             </Router>
         </div>

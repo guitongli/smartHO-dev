@@ -20,13 +20,13 @@ export default function Chat() {
     });
     useEffect(() => {
         if (roomId) {
-            db.collection("rooms")
+            db.collection("chat")
                 .doc(roomId)
                 .onSnapshot((snapshot) => {
                     dispatch(putRoomDetails(snapshot.data()));
                 });
 
-            db.collection("rooms")
+            db.collection("chat")
                 .doc(roomId)
                 .collection("messages")
                 .orderBy("timestamp", "asc")
