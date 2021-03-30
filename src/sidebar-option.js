@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import db from "./firebase";
+import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useSelector } from "react-redux";
 
 export default function SidebarOption({ Icon, title, id, addChannelOption }) {
 	const history = useHistory();
-	const user = useSelector((state) => {
-		return state.current_user;
-	});
 	const selectChannel = () => {
 		if (id) {
 			history.push(`/room/${id}`);
@@ -16,25 +14,37 @@ export default function SidebarOption({ Icon, title, id, addChannelOption }) {
 			history.push(title);
 		}
 	};
-	const [addToggle, setAddToggle] = useState();
 	const [newTopic, setNewTopic] = useState();
-	const [newEmail, setNewEmail] = useState();
 
+	const [newEmail, setNewEmail] = useState();
+	const user = useSelector((state) => state.current_user);
+    
+    const addChannel = () => {
+		document.getElementById("add-channel").style.display = "block";
+    };
+    
+    useEffect(()=>{
+		document.getElementById("add-channel").style.display = "none";
+
+    },[])
 	const handleClick = () => {
-        
 		if (newEmail && newTopic) {
 			db.collection("chat").add({
 				topic: newTopic,
 				sender: user.email,
 				getter: newEmail,
-            });
-            setAddToggle(false);
-		}  
+			});
+		 
+			setNewTopic(null);
+			setNewEmail(null);
+		document.getElementById("add-channel").style.display = "none";
+			 
+		}
 	};
 	return (
 		<div
 			className="sidebar-option"
-			onClick={addChannelOption ? setAddToggle(true) : selectChannel}
+			onClick={addChannelOption ? addChannel : selectChannel}
 		>
 			{Icon && <Icon className="sidebar-option__icon" />}
 			{Icon ? (
@@ -44,21 +54,20 @@ export default function SidebarOption({ Icon, title, id, addChannelOption }) {
 					<span className="sidebar-option__hash"># {title}</span>
 				</h3>
 			)}
-			{addToggle && 
-				<div>
-					<input
-						type="text"
-						placeholder="Topic Name"
-						onChange={(e) => setNewTopic(e.target.value)}
-					/>
-					<input
-						type="email"
-						placeholder="Invite via email"
-						onChange={(e) => setNewEmail(e.target.value)}
-					/>
-					<Button onClick={handleClick}>Send Invitation</Button>
-				</div>
-			}
+
+			<div id="add-channel">
+				<input
+					type="text"
+					placeholder="Topic Name"
+					onChange={(e) => setNewTopic(e.target.value)}
+				/>
+				<input
+					type="email"
+					placeholder="Invite via email"
+					onChange={(e) => setNewEmail(e.target.value)}
+				/>
+				<Button onClick={handleClick}>Send Invitation</Button>
+			</div>
 		</div>
 	);
 }

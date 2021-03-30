@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import {auth, provider} from './firebase';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {putUser} from './actions';
 
 export default function Login() {

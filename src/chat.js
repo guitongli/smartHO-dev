@@ -47,7 +47,7 @@ export default function Chat() {
             <div className="chat__header">
                 <div className="chat__header__left">
                     <h4 className="chat__channel-name">
-                        <strong># {roomDetails?.name}</strong>
+                        <strong># {roomDetails?.topic}</strong>
                         <StarBorderOutlinedIcon />
                     </h4>
                 </div>
@@ -60,20 +60,20 @@ export default function Chat() {
             <div className="chat__messages">
                 {roomMessages &&
                     roomMessages.map(
-                        ({ message, timestamp, user, userImage}) => {
+                        ({ content, timestamp, sender_name, sender_image}) => {
                             return (
                                 <Message
-                                    message={message}
+                                    message={content}
                                     timestamp={timestamp}
-                                    user={user}
-                                    userImage={userImage}
+                                    user={sender_name}
+                                    userImage={sender_image}
                                     key = {timestamp}
                                 />
                             );
                         }
                     )}
             </div>
-            <ChatInput channelName={roomDetails?.name} channelId ={roomId}/>
+            <ChatInput channelName={roomDetails?.topic} channelId ={roomId}/>
         </div>
     );
 }

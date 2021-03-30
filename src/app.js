@@ -1,4 +1,3 @@
-// import React from 'react';
 import Header from "./header";
 import Sidebar from "./sidebar";
 import Chat from "./chat";
@@ -7,8 +6,6 @@ import Login from './login';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux';
 
-import VoiceText from './voice-text';
-import HandEmoji from './hand-emoji';
 export default function App() {
     const user = useSelector((state)=>{
         return state && state.current_user;
@@ -17,12 +14,10 @@ export default function App() {
     return (
         <div className="app">
             <Router>
-           {user ? ( 
-                    <> 
-                         {/* <VoiceText/> */}
-                         {/* <HandEmoji/> */}
+                {user ? (
+                    <>
+                         
                         <Header />
-                      
                         <div className="app__body">
                             <Sidebar />
                             <Switch>
@@ -34,11 +29,10 @@ export default function App() {
                                 </Route>
                             </Switch>
                         </div>
-                    </> 
+                    </>
                 ):(
                     <Login/>
-                )  
-                } 
+                ) }
             </Router>
         </div>
     );

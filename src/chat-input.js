@@ -13,19 +13,19 @@ export default function ChatInput({ channelName, channelId }) {
 
         e.preventDefault();
         if (channelId) {
-            db.collection("rooms").doc(channelId).collection('messages').add({
-                message: input,
+            db.collection("chat").doc(channelId).collection('messages').add({
+                content: input,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                user: user.displayName,
-                userImage: user.photoURL,
+                sender_name: user.displayName,
+                sender_image: user.photoURL,
             }).then(result=> console.log(result)).catch(err=> console.log(err));
         };
-        setInput(null);
+        document.getElementById('chat-input').value=null;
     };
     return (
         <div className="chat-input">
             <form>
-                <input
+                <input id = 'chat-input'
                     placeholder={channelName?.toLowerCase()}
                     onChange={(e) => {
                         setInput(e.target.value);

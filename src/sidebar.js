@@ -8,11 +8,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import AddIcon from "@material-ui/icons/Add";
 import db from "./firebase";
+import Button from "@material-ui/core/Button";
 import { putChannels } from "./actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Sidebar() {
     const dispatch = useDispatch();
+   
     const channels = useSelector((state) => {
         return state.channels;
     });
@@ -36,6 +38,8 @@ export default function Sidebar() {
             );
         });
     }, []);
+
+    
     return (
         <div className="sidebar">
             <div className="sidebar__header">
@@ -61,6 +65,7 @@ export default function Sidebar() {
                     );
                 })}
             <SidebarOption Icon={AddIcon} addChannelOption={true} />
+            
         </div>
     );
 }
