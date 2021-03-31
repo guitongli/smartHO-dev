@@ -3,6 +3,10 @@ import Sidebar from "./sidebar";
 import Chat from "./chat";
 import { useState } from "react";
 import Login from './login';
+import Face from './face-recog';
+import Hand from './hand-recog';
+// import HandEmoji from './hand-emoji';
+import VoiceText from './voice-text';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux';
 
@@ -16,7 +20,10 @@ export default function App() {
             <Router>
                 {user ? (
                     <>
-                         
+                    <Hand />
+                    {/* <HandEmoji /> */}
+                    <VoiceText />
+                         <Face />
                         <Header />
                         <div className="app__body">
                             <Sidebar />

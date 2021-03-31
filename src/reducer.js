@@ -29,6 +29,24 @@ export default function Reducer(state = {}, action) {
 
         return state;
     }
+    if (action.type === "PUT_HAND_UP") {
+        state = {
+            ...state,
+            predictions: action.predictions,
+        };
+        console.log("predictions length", state.predictions.length);
+
+        return state;
+    }
+  if (action.type === "PUT_SMILE_UP") {
+        state = {
+            ...state,
+            detections: action.detections,
+        };
+        console.log("detection emoji", state.detections);
+
+        return state;
+    }
   
     return state;
 }

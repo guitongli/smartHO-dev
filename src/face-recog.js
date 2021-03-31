@@ -1,25 +1,27 @@
 import React from "react";
 import { Component } from "react";
 import * as faceapi from "face-api.js";
+import Emoji from './emoji';
+ 
 export default class Face extends Component {
     constructor() {
         super();
         this.state = {
             expressions: {
-                // neutral: ":|",
-                // happy: ":)",
-                // sad: ":'(",
-                // angry: ":(",
-                // fearful: ":O",
-                // disgusted: ":D",
-                // surprised: ":B",
-                neutral: "😐",
-                happy: "😃",
-                sad: "😥",
-                angry: "😠",
-                fearful: "😱",
-                disgusted: "🤢",
-                surprised: "😮",
+                neutral: ":|",
+                happy: ":)",
+                sad: ":'(",
+                angry: ":(",
+                fearful: ":O",
+                disgusted: ":D",
+                surprised: ":B",
+                // neutral: "😐",
+                // happy: "😃",
+                // sad: "😥",
+                // angry: "😠",
+                // fearful: "😱",
+                // disgusted: "🤢",
+                // surprised: "😮",
             },
             currentExpression: null,
         };
@@ -32,19 +34,19 @@ export default class Face extends Component {
             faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
             faceapi.nets.faceExpressionNet.loadFromUri("/models"),
         ]);
-        console.log("about to call start video...");
+        // console.log("about to call start video...");
         this.startVideo();
     }
     // accessing cam
     async startVideo() {
-        console.log("starting...");
+        // console.log("starting...");
         const stream = await navigator.mediaDevices.getUserMedia({
             video: true,
         });
-        console.log("stream: ", stream);
-        console.log("this.video: ", this.video);
-        this.video.current.srcObject = stream;
-        this.detectExpression();
+        // console.log("stream: ", stream);
+        // console.log("this.video: ", this.video);
+        if(this.video.current){this.video.current.srcObject = stream;
+        this.detectExpression();}
     }
     // detecing expression
     detectExpression() {
@@ -57,9 +59,9 @@ export default class Face extends Component {
                     new faceapi.TinyFaceDetectorOptions()
                 )
                 .withFaceExpressions();
-            console.log("detection: ", detection);
+            // console.log("detection: ", detection);
             // console.log(`detection[0]`, detection[0]);
-            console.log(`detection[0].expressions`, detection[0].expressions);
+            // console.log(`detection[0].expressions`, detection[0].expressions);
             // console.log(
             //     `detection[0].expressions.FaceExpressions`,
             //     detection[0].expressions.FaceExpressions
@@ -71,25 +73,25 @@ export default class Face extends Component {
                 let expressionKey;
                 let expressionValue = 0.0;
                 for (const key in detection[0].expressions) {
-                    if (detection[0].expressions[key] > expressionValue) {
+                    if (detection[0].expressions && detection[0].expressions[key] > expressionValue) {
                         expressionKey = key;
                         expressionValue = detection[0].expressions[key];
                     }
                 }
-                console.log(`expressionKey`, expressionKey);
-                console.log(`expressionValue`, expressionValue);
+                // console.log(`expressionKey`, expressionKey);
+                // console.log(`expressionValue`, expressionValue);
                 this.setState({
                     currentExpression: this.state.expressions[expressionKey],
                 });
-                console.log(`currentExpression`, this.currentExpression); // can't get this log!
+                
             }
-        }, 10000); // miliseconds to try detecting - should we increase this to make sure it captures one image in a reasonable time or should we get rid of it at all?
+        }, 1000); // miliseconds to try detecting - should we increase this to make sure it captures one image in a reasonable time or should we get rid of it at all?
     }
     render() {
         // returning the expressed expression
         return (
             <div>
-                <p>Current Emotion is: {this.state.currentExpression}</p>
+                {/* <p className='emoji'> {this.state.currentExpression}</p> */}
                 <video
                     id="video"
                     width="320"
@@ -98,6 +100,7 @@ export default class Face extends Component {
                     muted
                     ref={this.video}
                 ></video>
+                <Emoji emoji={this.state.currentExpression}/>
             </div>
         );
     }

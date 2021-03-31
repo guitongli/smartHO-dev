@@ -30,3 +30,17 @@ export function putRoomMessages(room_messages) {
         room_messages,
     };
 }
+export function putHandUp(predictions) {
+    return {
+        type: "PUT_HAND_UP",
+
+        predictions,
+    };
+}
+export function putSmileUp(detections) {
+    return {
+        type: "PUT_SMILE_UP",
+
+        detections,
+    };
+}
