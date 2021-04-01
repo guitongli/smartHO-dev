@@ -8,20 +8,20 @@ export default class Face extends Component {
         super();
         this.state = {
             expressions: {
-                neutral: ":|",
-                happy: ":)",
-                sad: ":'(",
-                angry: ":(",
-                fearful: ":O",
-                disgusted: ":D",
-                surprised: ":B",
-                // neutral: "😐",
-                // happy: "😃",
-                // sad: "😥",
-                // angry: "😠",
-                // fearful: "😱",
-                // disgusted: "🤢",
-                // surprised: "😮",
+                // neutral: ":|",
+                // happy: ":)",
+                // sad: ":'(",
+                // angry: ":(",
+                // fearful: ":O",
+                // disgusted: ":D",
+                // surprised: ":B",
+                neutral: "😐",
+                happy: "😃",
+                sad: "😥",
+                angry: "😠",
+                fearful: "😱",
+                disgusted: "🤢",
+                surprised: "😮",
             },
             currentExpression: null,
         };
@@ -92,13 +92,15 @@ export default class Face extends Component {
         return (
             <div>
                 {/* <p className='emoji'> {this.state.currentExpression}</p> */}
-                <video
+                <video className='face-video'
                     id="video"
                     width="320"
                     height="180"
+
                     autoPlay
                     muted
                     ref={this.video}
+                    style={{visibility:'hidden'}}
                 ></video>
                 <Emoji emoji={this.state.currentExpression}/>
             </div>

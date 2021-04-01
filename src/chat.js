@@ -8,10 +8,12 @@ import ChatInput from './chat-input';
 import { useSelector, useDispatch } from "react-redux";
 import { putRoomDetails, putRoomMessages } from "./actions";
 
+import VoiceChat from "./voice-chat";
 
 export default function Chat() {
     const { roomId } = useParams();
     const dispatch = useDispatch();
+    const right=useSelector(state=>state.right)
     const roomDetails = useSelector((state) => {
         return state.room_details;
     });
@@ -73,7 +75,8 @@ export default function Chat() {
                         }
                     )}
             </div>
-            <ChatInput channelName={roomDetails?.topic} channelId ={roomId}/>
+            {right&&<ChatInput channelName={roomDetails?.topic} channelId ={roomId}/>}
+            {!right&&<VoiceChat channelName={roomDetails?.topic} channelId ={roomId} />}
         </div>
     );
 }

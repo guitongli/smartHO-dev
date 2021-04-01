@@ -9,6 +9,7 @@ export default function ChatInput({ channelName, channelId }) {
         return state.current_user;
     });
     const [input, setInput] = useState("");
+    
     const sendMessage = (e) => {
 
         e.preventDefault();
@@ -26,7 +27,7 @@ export default function ChatInput({ channelName, channelId }) {
         <div className="chat-input">
             <form>
                 <input id = 'chat-input'
-                    placeholder={channelName?.toLowerCase()}
+                    placeholder='look amazed to toggle between text / voice input'
                     onChange={(e) => {
                         setInput(e.target.value);
                     }}

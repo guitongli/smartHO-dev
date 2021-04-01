@@ -74,6 +74,11 @@
   border-radius: 999px;
 }
 
+.sidebar__info {
+  display: flex;
+  align-items: center;
+}
+
 .sidebar__info h2 {
   font-size: 15ps;
   font-weight: 900;
@@ -83,6 +88,7 @@
 .sidebar__info h3 {
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 13px;
   font-weight: 400;
 }
@@ -136,11 +142,13 @@ body {
 .chat {
   flex: 0.7;
   flex-grow: 1;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   padding-bottom: 150px;
 }
 
 .chat__header {
+  flex: 0.1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -170,15 +178,24 @@ body {
   font-size: 18px;
 }
 
+.chat__messages {
+  flex: 0.7;
+  padding: 40px;
+  height: 50vh;
+  overflow-y: auto;
+}
+
 .message {
   display: flex;
   align-items: center;
+  margin-top: 20px;
 }
 
 .message img {
   height: 50px;
   width: 50px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .message__time {
@@ -186,8 +203,33 @@ body {
   font-weight: 300;
 }
 
+.me {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.me img {
+  border-radius: 10px;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+.me .message__info {
+  justify-content: left;
+}
+
+.me__time {
+  color: lightblue;
+  font-weight: 300;
+}
+
 .chat-input {
   border-radius: 10px;
+  flex: 0.2;
 }
 
 .chat-input form {
@@ -197,7 +239,7 @@ body {
 }
 
 .chat-input form input {
-  position: fixed;
+  position: relative;
   bottom: 10px;
   width: 70%;
   border: 1px solid gray;
@@ -207,6 +249,23 @@ body {
 
 .chat-input form button {
   display: none;
+}
+
+.voice-text {
+  flex: 0.2;
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.welcome {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .login {
@@ -239,9 +298,43 @@ body {
   border: none;
 }
 
+.login__container p {
+  margin-top: 20px;
+}
+
+video {
+  position: fixed;
+  bottom: 0;
+  padding: 40px;
+  margin: 40px;
+}
+
+.emoji-hand {
+  background-color: transparent;
+  position: relative;
+  bottom: 0;
+  padding: 40px;
+  margin: 40px;
+}
+
+.face-video {
+  position: absolute;
+  bottom: 0;
+  padding: 40px;
+  margin: 40px;
+}
+
+.emoji {
+  font-size: 10rem;
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 main {

@@ -1,11 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
-import { putSmileUp } from "./actions";
+import { putSmileUp, toggleSide, triggerSend, noSend } from "./actions";
 import { useState, useEffect } from "react";
 
 export default function Emoji(props) {
+	const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
-   
-	useEffect(()=>{dispatch(putSmileUp(props.emoji))},[props.emoji]);
-	return (<div>{props&&props.emoji}, hi</div>);
+	useEffect(() => {
+		dispatch(putSmileUp(props.emoji));
+		if (props.emoji === "😮") {
+			dispatch(toggleSide());
+		} else if (props.emoji === "😃"){
+            dispatch(triggerSend())
+        } else if (props.emoji === "😥"){
+        
+            dispatch(noSend())
+        }
+	}, [props.emoji]);
+
+	return <div className="emoji">{props && props.emoji}</div>;
 }

@@ -44,3 +44,48 @@ export function putSmileUp(detections) {
         detections,
     };
 }
+export function toggleSide() {
+    return {
+        type: "TOGGLE_SIDE"
+    };
+}
+
+export function toggleMic (rec){
+    return {
+        type:'TOGGLE_MIC',
+        rec
+    }
+}
+
+export function saveNote (saved_note){
+    return {
+        type:'SAVE_NOTE',
+        saved_note
+    }
+}
+export function saveCommand (saved_note){
+    return {
+        type:'SAVE_COMMAND',
+        saved_note
+    }
+}
+export function triggerSend (){
+    return {
+        type:'TRIGGER_SEND'
+    }
+}
+export function noSend (){
+    return {
+        type:'NO_SEND'
+    }
+}
+export function micOn (){
+    return {
+        type:'MIC_ON'
+    }
+}
+export function micOff (){
+    return {
+        type:'MIC_OFF'
+    }
+}

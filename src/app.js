@@ -3,10 +3,9 @@ import Sidebar from "./sidebar";
 import Chat from "./chat";
 import { useState } from "react";
 import Login from './login';
-import Face from './face-recog';
-import Hand from './hand-recog';
+
 // import HandEmoji from './hand-emoji';
-import VoiceText from './voice-text';
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux';
 
@@ -20,10 +19,7 @@ export default function App() {
             <Router>
                 {user ? (
                     <>
-                    <Hand />
-                    {/* <HandEmoji /> */}
-                    <VoiceText />
-                         <Face />
+                   
                         <Header />
                         <div className="app__body">
                             <Sidebar />
@@ -32,7 +28,12 @@ export default function App() {
                                     <Chat />
                                 </Route>
                                 <Route path="/">
-                                    <h1>Welcome</h1>
+                                    <div className='welcome'>
+                                    <h1>Welcome to NICE CHAT</h1>
+                                    <img src="https://img.icons8.com/plasticine/2x/uwu-emoji.png"></img>
+
+                                    <p>Click on Channels to begin</p>
+                                    </div>
                                 </Route>
                             </Switch>
                         </div>

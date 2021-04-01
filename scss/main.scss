@@ -3,13 +3,16 @@
 @import "./app";
 @import "./chat";
 @import "./login";
+@import "./emoji";
 
 * {
-    margin: 0;
-    box-sizing: border-box;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+		sans-serif;
 }
 
 main {
-    background-color: wheat;
-    font-family: sans-serif;
+	background-color: wheat;
+	font-family: sans-serif;
 }

@@ -1,10 +1,11 @@
 import * as handTrack from "handtrackjs";
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {putHandUp} from './actions'
+import {putHandUp, micOn, micOff} from './actions'
 
 export default function Hand() {
     const dispatch = useDispatch();
+    // const video = useRef
 	const video = document.getElementById("myvideo");
 	// const canvas = document.getElementById("canvas");
 	 
@@ -14,43 +15,51 @@ export default function Hand() {
 	let model = null;
 
 	const modelParams = {
-		flipHorizontal: true, // flip e.g for video
+		flipHorizontal: false, // flip e.g for video
 		maxNumBoxes: 20, // maximum number of boxes to detect
-		iouThreshold: 0.5, // ioU threshold for non-max suppression
-		scoreThreshold: 0.6, // confidence threshold for predictions.
+		iouThreshold: 0.3, // ioU threshold for non-max suppression
+		scoreThreshold: 0.65, // confidence threshold for predictions.
 	};
 
 	function startVideo() {
-        if (video){
+			console.log("video started");
+       if(video){
 		handTrack.startVideo(video).then(function (status) {
-			// console.log("video started", status);
+			console.log("video status", status);
 			if (status) {
 				isVideo = true;
-				setInterval(runDetection,1000);
+				runDetection()
+				// setInterval(runDetection,2000);
 			} else {
 			}
-        });
-        }
+        });}
+         
 	}
 
-	function toggleVideo() {
-		if (!isVideo) {
-			startVideo();
-		} else {
-			handTrack.stopVideo(video);
-			isVideo = false;
-		}
-	}
+	// function toggleVideo() {
+	// 	if (!isVideo) {
+	// 		startVideo();
+	// 	} else {
+	// 		handTrack.stopVideo(video);
+	// 		isVideo = false;
+	// 	}
+	// }
 
 	function runDetection() {
         if(video){
 		model.detect(video).then((predictions) => {
-            // console.log('Predictions', predictions);
-            dispatch(putHandUp(predictions));
+            console.log('Predictions', predictions);
+           
+            if (predictions.length >= 2){
+                //  dispatch(putHandUp(predictions));
+                dispatch(micOn())
+            } else if(predictions.length <2) {
+                dispatch(micOff())
+            }
 			 
 		});}
 	}
-	useEffect(loadModal, []);
+	useEffect(()=>{loadModal()});
 	// Load the model.
 	function loadModal() {
 		handTrack.load(modelParams).then((lmodel) => {
@@ -75,11 +84,10 @@ export default function Hand() {
 				className="videobox"
 				autoPlay="autoplay"
                 id="myvideo"
-                // width = '300'
-                style={{display: 'none'}}
+                width = '100'
+                style={{visibility: 'hidden'}}
 			></video>
 
-			<canvas id="canvas" className="border canvasbox"  style={{display: 'none'}}></canvas>
 		</div>
 	);
 }

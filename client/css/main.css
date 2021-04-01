@@ -136,11 +136,13 @@ body {
 .chat {
   flex: 0.7;
   flex-grow: 1;
+  display: flex;
   flex-direction: column;
   padding-bottom: 150px;
 }
 
 .chat__header {
+  flex: 0.2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -171,6 +173,7 @@ body {
 }
 
 .chat__messages {
+  flex: 0.2;
   height: 50vh;
   overflow-y: auto;
 }
@@ -192,6 +195,7 @@ body {
 }
 
 .chat-input {
+  flex: 0.2;
   border-radius: 10px;
 }
 
@@ -211,6 +215,14 @@ body {
 
 .chat-input form button {
   display: none;
+}
+
+.voice-text {
+  flex: 0.2;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
 }
 
 .login {
@@ -237,10 +249,35 @@ body {
   margin-top: 10px;
   padding: 20px;
   text-transform: inherit;
-  background-color: green;
+  background-color: red;
   color: white;
   border-radius: 10px;
   border: none;
+}
+
+video {
+  position: fixed;
+  bottom: 0;
+  padding: 40px;
+  margin: 40px;
+}
+
+.emoji-hand {
+  position: relative;
+  bottom: 0;
+  padding: 40px;
+  margin: 40px;
+}
+
+.face-video {
+  position: absolute;
+  bottom: 0;
+  padding: 40px;
+  margin: 40px;
+}
+
+.voice-text {
+  font-size: 10rem;
 }
 
 * {

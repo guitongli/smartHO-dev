@@ -18,10 +18,11 @@ export default function Login() {
     return (
         <div className="login">
             <div className="login__container">
-                <img src="https://webcomicms.net/sites/default/files/clipart/131888/cool-logos-131888-2986250.png"></img>
+                <img src="https://img.icons8.com/plasticine/2x/uwu-emoji.png"></img>
 
-                <h1>Sign in to Smart Home Office</h1>
+                <h1>Nice Chat</h1>
                 <Button onClick={signIn}>sign in with Google</Button>
+                <p>your camera will be turned on after login</p>
             </div>
         </div>
     );
