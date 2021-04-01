@@ -5,7 +5,7 @@ import { putHandUp, micOn, micOff } from "./actions";
 
 export default function Hand() {
 	const dispatch = useDispatch();
-	// const video = useRef
+	const myvideo = useRef();
 	const video = document.getElementById("myvideo");
 	// const canvas = document.getElementById("canvas");
 	const detections = useSelector((state) => state.detections);
@@ -26,10 +26,10 @@ export default function Hand() {
 		console.log("video started");
 		if (video) {
 			handTrack.startVideo(video).then(function (status) {
-				// console.log("video status", status);
+				console.log("video status", status);
 				if (status) {
 					// isVideo = true;
-					setInterval(runDetection, 5000);
+					
 					// runDetection()
 				} else {
 				}
@@ -58,12 +58,14 @@ export default function Hand() {
 					dispatch(micOff());
 				}
 			});
-		}
+        } else {
+            console.log('video is empty')
+        }
 	}
 	useEffect(() => {
-		if (!predictions ) {
-			loadModal();
-		} 
+		 startVideo();
+			setTimeout(loadModal(),4000);
+		
 		// else {
 		// 		setInterval(runDetection, 1000);
 		// }
@@ -76,12 +78,13 @@ export default function Hand() {
 	// Load the model.
 	function loadModal() {
 		handTrack.load(modelParams).then((lmodel) => {
-			console.log("handworking");
+			console.log("modal loaded");
 
 			// detect objects in the image.
 			model = lmodel;
-			startVideo();
-			console.log("video started");
+            // startVideo();
+            setInterval(runDetection, 1000);
+			console.log("detection started");
 			// updateNote.innerText = "Loaded Model!";
 			// trackButton.disabled = false;
 		});
@@ -91,9 +94,10 @@ export default function Hand() {
 		<div className="hand-video">
 			<video
 				autoPlay="autoplay"
-				id="myvideo"
+                id="myvideo"
+                ref={myvideo}
 				width="100"
-				style={{visibility: 'hidden'}}
+				// style={{visibility: 'hidden'}}
 			></video>
 		</div>
 	);
