@@ -15,18 +15,18 @@ mic.lang = "en-US";
 export default function VoiceChat({ channelId, channelName }) {
 	const rec = useSelector((state) => state.rec);
 	const dispatch = useDispatch();
-	const [note, setNote] = useState('hands up to record, hands down to stop, smile to send, look sad to delete');
+	const [note, setNote] = useState();
 	const send = useSelector((state) => state.send);
 	const user = useSelector((state) => {
 		return state.current_user;
 	});
 	useEffect(() => {
-		handleListen();
+		handleListen(rec);
 	}, [rec]);
 
 	useEffect(() => {
-		if (send) {
-			if (channelId) {
+		if (send==='send') {
+			if (channelId && note) {
 				db.collection("chat")
 					.doc(channelId)
 					.collection("messages")
@@ -40,19 +40,19 @@ export default function VoiceChat({ channelId, channelName }) {
 					.catch((err) => console.log(err));
 			}
 			setNote(null);
-		} else {
+		} else if (send === 'delete'){
 			console.log('trying to deletee');
 			setNote(null);
 		}
 	}, [send]);
 
-	const handleListen = () => {
+	const handleListen = (rec) => {
 		if (rec) {
 			mic.start();
 			console.log("mic on");
 			mic.onend = () => {
 				console.log("continue");
-				mic.start();
+				// mic.start();
 			};
 		} else {
 			mic.stop();
@@ -77,8 +77,9 @@ export default function VoiceChat({ channelId, channelName }) {
 
 	return (
 		<div className="voice-text">
-			<h1>{rec ? <span>🗣</span> : <span>🙌🏻</span>}</h1>
-			<p>{note}</p>
+			<h1>{rec ? "🗣" : "🙌🏻"}</h1>
+			{/* <p>hands up to record, hands down to stop, smile to send, look sad to delete</p> */}
+			<h6>{note}</h6>
 		</div>
 	);
 }

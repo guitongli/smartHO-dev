@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import db from "./firebase";
 import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
@@ -7,6 +7,7 @@ import Message from "./message";
 import ChatInput from './chat-input';
 import { useSelector, useDispatch } from "react-redux";
 import { putRoomDetails, putRoomMessages } from "./actions";
+import Hand from './hand-recog';
 
 import VoiceChat from "./voice-chat";
 
@@ -20,6 +21,8 @@ export default function Chat() {
     const roomMessages = useSelector((state) => {
         return state.room_messages;
     });
+    const elemRef = useRef();
+
     useEffect(() => {
         if (roomId) {
             db.collection("chat")
@@ -43,6 +46,20 @@ export default function Chat() {
                 });
         }
     }, [roomId]);
+     useEffect(() => {
+        console.log();
+        elemRef.current.scrollTop =
+            elemRef.current.scrollHeight;
+        // elemRef.current.clientHeight;
+        console.log(
+            "measurements",
+            elemRef.current.scrollTop,
+
+            elemRef.current.scrollHeight,
+            elemRef.current.clientHeight
+            // newRollTop
+        );
+    },[roomMessages]);
 
     return (
         <div className="chat">
@@ -59,7 +76,7 @@ export default function Chat() {
                     </p>
                 </div>
             </div>
-            <div className="chat__messages">
+            <div className="chat__messages" ref={elemRef}>
                 {roomMessages &&
                     roomMessages.map(
                         ({ content, timestamp, sender_name, sender_image}) => {
@@ -75,8 +92,11 @@ export default function Chat() {
                         }
                     )}
             </div>
+            <div className='input'>
             {right&&<ChatInput channelName={roomDetails?.topic} channelId ={roomId}/>}
             {!right&&<VoiceChat channelName={roomDetails?.topic} channelId ={roomId} />}
+            {!right&&<Hand className= 'emoji-hand'/> }
+            </div>
         </div>
     );
 }

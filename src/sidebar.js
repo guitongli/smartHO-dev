@@ -13,7 +13,6 @@ import { putChannels } from "./actions";
 import { useSelector, useDispatch } from "react-redux";
 import VoiceChannel from './voice-channel';
 import Face from './face-recog';
-import Hand from './hand-recog';
 
 export default function Sidebar() {
     const dispatch = useDispatch();
@@ -75,7 +74,7 @@ export default function Sidebar() {
             <SidebarOption Icon={AddIcon} addChannelOption={true} />
             {/* {right && <VoiceChannel/>} */}
 
-                 <Hand className= 'emoji-hand'/> 
+                 
                   
                          <Face className='emoji-face' />
         </div>

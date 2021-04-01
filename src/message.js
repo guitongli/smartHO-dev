@@ -7,7 +7,7 @@ export default function Message({ message, timestamp, user, userImage }) {
         <div className={me.displayName == user? "me":"message"}>
             <img src={userImage}></img>
             <div className="message__info">
-                <p>{user}</p>
+                {/* <p>{user}</p> */}
                 <p>{message}</p>
                 {/* <span className='message__time'>{new Date(timestamp?.toDate()).toUTCString}</span> */}
             </div>

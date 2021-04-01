@@ -75,3 +75,22 @@
 		font-weight: 500;
 	}
 }
+
+.face-video {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 999px;
+	position: absolute;
+
+	bottom: 30vh;
+	left: 24px;
+}
+
+.emoji {
+	font-size: 10rem;
+	background-color: transparent;
+	position: absolute;
+	bottom: 0;
+	margin-left: 20px;
+}

@@ -91,6 +91,7 @@ export default class Face extends Component {
         // returning the expressed expression
         return (
             <div>
+                <div >
                 {/* <p className='emoji'> {this.state.currentExpression}</p> */}
                 <video className='face-video'
                     id="video"
@@ -100,8 +101,9 @@ export default class Face extends Component {
                     autoPlay
                     muted
                     ref={this.video}
-                    style={{visibility:'hidden'}}
+                    // style={{visibility:'hidden'}}
                 ></video>
+                </div>
                 <Emoji emoji={this.state.currentExpression}/>
             </div>
         );

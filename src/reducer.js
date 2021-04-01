@@ -94,7 +94,7 @@ export default function Reducer(state = initialState, action) {
 	if (action.type === "TRIGGER_SEND") {
 		state = {
 			...state,
-			send: true,
+			send: 'send',
 		};
 
 		return state;
@@ -102,7 +102,7 @@ export default function Reducer(state = initialState, action) {
 	if (action.type === "NO_SEND") {
 		state = {
 			...state,
-			send: false,
+			send: 'delete',
 		};
 
 		return state;

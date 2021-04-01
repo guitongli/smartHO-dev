@@ -1,14 +1,15 @@
 import * as handTrack from "handtrackjs";
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {putHandUp, micOn, micOff} from './actions'
+import { putHandUp, micOn, micOff } from "./actions";
 
 export default function Hand() {
-    const dispatch = useDispatch();
-    // const video = useRef
+	const dispatch = useDispatch();
+	// const video = useRef
 	const video = document.getElementById("myvideo");
 	// const canvas = document.getElementById("canvas");
-	 
+	const detections = useSelector((state) => state.detections);
+	const predictions = useSelector((state) => state.predictions);
 	let trackButton = document.getElementById("trackbutton");
 
 	let isVideo = false;
@@ -18,22 +19,22 @@ export default function Hand() {
 		flipHorizontal: false, // flip e.g for video
 		maxNumBoxes: 20, // maximum number of boxes to detect
 		iouThreshold: 0.3, // ioU threshold for non-max suppression
-		scoreThreshold: 0.65, // confidence threshold for predictions.
+		scoreThreshold: 0.6, // confidence threshold for predictions.
 	};
 
 	function startVideo() {
-			console.log("video started");
-       if(video){
-		handTrack.startVideo(video).then(function (status) {
-			console.log("video status", status);
-			if (status) {
-				isVideo = true;
-				runDetection()
-				// setInterval(runDetection,2000);
-			} else {
-			}
-        });}
-         
+		console.log("video started");
+		if (video) {
+			handTrack.startVideo(video).then(function (status) {
+				console.log("video status", status);
+				if (status) {
+					// isVideo = true;
+					setInterval(runDetection, 1000);
+					// runDetection()
+				} else {
+				}
+			});
+		}
 	}
 
 	// function toggleVideo() {
@@ -46,48 +47,54 @@ export default function Hand() {
 	// }
 
 	function runDetection() {
-        if(video){
-		model.detect(video).then((predictions) => {
-            console.log('Predictions', predictions);
-           
-            if (predictions.length >= 2){
-                //  dispatch(putHandUp(predictions));
-                dispatch(micOn())
-            } else if(predictions.length <2) {
-                dispatch(micOff())
-            }
-			 
-		});}
+		if (video) {
+			model.detect(video).then((predictions) => {
+				console.log("Predictions", predictions);
+
+				if (predictions.length >= 2) {
+					//  dispatch(putHandUp(predictions));
+					dispatch(micOn());
+				} else if (predictions.length < 2) {
+					dispatch(micOff());
+				}
+			});
+		}
 	}
-	useEffect(()=>{loadModal()});
+	useEffect(() => {
+		 
+			setTimeout(loadModal(),4000);
+		
+		// else {
+		// 		setInterval(runDetection, 1000);
+		// }
+	},[]);
+	// 	useEffect(()=>{
+	// 		if (model){
+	// runDetection();
+	// 		}
+	// },[detections])
 	// Load the model.
 	function loadModal() {
 		handTrack.load(modelParams).then((lmodel) => {
-            console.log('handworking')
-           
+			console.log("handworking");
+
 			// detect objects in the image.
-            model = lmodel;
-             startVideo();
+			model = lmodel;
+			startVideo();
+			console.log("mocal loaded");
 			// updateNote.innerText = "Loaded Model!";
 			// trackButton.disabled = false;
 		});
-    }
-    
-
-    
+	}
 
 	return (
-		<div className="bx--body p20">
-		 
-			 
+		<div className="hand-video">
 			<video
-				className="videobox"
 				autoPlay="autoplay"
-                id="myvideo"
-                width = '100'
-                style={{visibility: 'hidden'}}
+				id="myvideo"
+				width="100"
+				style={{visibility: 'hidden'}}
 			></video>
-
 		</div>
 	);
 }

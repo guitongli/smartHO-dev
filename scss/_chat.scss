@@ -3,7 +3,7 @@
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-
+	justify-content: space-between;
 	padding-bottom: 150px;
 
 	&__header {
@@ -37,7 +37,7 @@
 	}
 }
 .chat__messages {
-	flex: 0.7;
+	flex: 0.8;
 	padding: 40px;
 	height: 50vh;
 	overflow-y: auto;
@@ -73,7 +73,10 @@
 		object-fit: cover;
 	}
 	.message__info {
-		justify-content: left;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		
 	}
 	&__time {
 		color: lightblue;
@@ -82,7 +85,8 @@
 }
 .chat-input {
 	border-radius: 10px;
-	flex: 0.2;
+	flex: 0.1;
+
 	form {
 		position: relative;
 		display: flex;
@@ -90,9 +94,9 @@
 
 		input {
 			position: relative;
-			bottom: 10px;
+
 			width: 70%;
-			border: 1px solid gray;
+			// border: 1px solid gray;
 			border-radius: 2px;
 			padding: 40px;
 		}
@@ -102,12 +106,21 @@
 	}
 }
 .voice-text {
+	display: flex;
+	align-items: center;
+	// border-color: 8px solid gray;
+	margin-left: 3vw;
+	// bottom: 10vh;
+	// border-radius: 10px;
 	flex: 0.2;
 	background-color: transparent;
-	position: relative;
-	display: flex;
-	justify-content: center;
+	// position: absolute;
+
+	justify-content: flex-start;
 	font-size: 40px;
+	h6 {
+		margin-left: 40px;
+	}
 }
 
 .welcome {
@@ -116,4 +129,17 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+}
+.hand-video {
+	position: absolute;
+	width: 100vw;
+	height: 20vh;
+}
+
+.input {
+	border: 1px solid gray;
+	border-radius: 10px;
+	position: absolute;
+	bottom: 0px;
+	width: 80%;
 }
