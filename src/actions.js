@@ -89,3 +89,8 @@ export function micOff (){
         type:'MIC_OFF'
     }
 }
+export function setNull (){
+    return {
+        type:'SET_NULL'
+    }
+}

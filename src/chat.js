@@ -7,7 +7,7 @@ import Message from "./message";
 import ChatInput from './chat-input';
 import { useSelector, useDispatch } from "react-redux";
 import { putRoomDetails, putRoomMessages } from "./actions";
-import Hand from './hand-recog';
+import Hand from './hand-test';
 
 import VoiceChat from "./voice-chat";
 

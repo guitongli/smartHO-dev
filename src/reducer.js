@@ -1,4 +1,4 @@
-const initialState = { right: true, rec: false };
+const initialState = { right: true, rec: false, send: null };
 
 export default function Reducer(state = initialState, action) {
 	if (action.type === "PUT_USER") {
@@ -95,6 +95,14 @@ export default function Reducer(state = initialState, action) {
 		state = {
 			...state,
 			send: 'send',
+		};
+
+		return state;
+	}
+	if (action.type === "SET_NULL") {
+		state = {
+			...state,
+			send: null,
 		};
 
 		return state;

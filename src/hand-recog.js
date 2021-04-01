@@ -21,7 +21,7 @@ export default function Hand() {
 		iouThreshold: 0.3, // ioU threshold for non-max suppression
 		scoreThreshold: 0.6, // confidence threshold for predictions.
 	};
-
+const [videoStatus, setVideoStatus]=useState(false);
 	function startVideo() {
 		console.log("video started");
 		if (video) {
@@ -29,6 +29,8 @@ export default function Hand() {
 				// console.log("video status", status);
 				if (status) {
 					// isVideo = true;
+		setVideoStatus(true)
+			
 					setInterval(runDetection, 5000);
 					// runDetection()
 				} else {
@@ -61,13 +63,13 @@ export default function Hand() {
 		}
 	}
 	useEffect(() => {
-		if (!predictions ) {
-			loadModal();
+		if (!predictions || detections) {
+			!videoStatus && loadModal();
 		} 
 		// else {
 		// 		setInterval(runDetection, 1000);
 		// }
-	},[]);
+	});
 	// 	useEffect(()=>{
 	// 		if (model){
 	// runDetection();
@@ -93,7 +95,7 @@ export default function Hand() {
 				autoPlay="autoplay"
 				id="myvideo"
 				width="100"
-				style={{visibility: 'hidden'}}
+				// style={{visibility: 'hidden'}}
 			></video>
 		</div>
 	);

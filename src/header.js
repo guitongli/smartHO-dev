@@ -17,7 +17,7 @@ export default function Header(){
             </div>
             <div className='header__search'>
                 <SearchIcon/>
-                <input placeholder='Search with Voice'></input>
+                <input placeholder='smile to send, bad face to delete'></input>
             </div>
             <div className='header__right'>
                 <HelpOutlineIcon/>

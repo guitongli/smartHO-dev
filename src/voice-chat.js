@@ -4,6 +4,7 @@ import { saveNote } from "./actions";
 import Button from "@material-ui/core/Button";
 import db from "./firebase";
 import firebase from "firebase";
+import {setNull} from './actions';
 const SpeechRecognition =
 	window.SpeechRecognition || window.webkitSpeechRecognition;
 const mic = new SpeechRecognition();
@@ -39,10 +40,12 @@ export default function VoiceChat({ channelId, channelName }) {
 					.then((result) => console.log(result))
 					.catch((err) => console.log(err));
 			}
+			dispatch(setNull());
 			setNote(null);
 		} else if (send === 'delete'){
 			console.log('trying to deletee');
 			setNote(null);
+			dispatch(setNull());
 		}
 	}, [send]);
 

@@ -27,7 +27,7 @@ export default function ChatInput({ channelName, channelId }) {
         <div className="chat-input">
             <form>
                 <input id = 'chat-input'
-                    placeholder='look amazed to toggle between text / voice input'
+                placeholder='open mouth to toggle voice/text input, hands in camera to record'
                     onChange={(e) => {
                         setInput(e.target.value);
                     }}

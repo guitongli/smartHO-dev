@@ -5,8 +5,9 @@ import { putHandUp, micOn, micOff } from "./actions";
 
 export default function Hand() {
 	const dispatch = useDispatch();
-	const myvideo = useRef();
-	const video = document.getElementById("myvideo");
+     const video = useRef();
+     const [id, setId]=useState();
+	// const video = document.getElementById("myvideo");
 	// const canvas = document.getElementById("canvas");
 	const detections = useSelector((state) => state.detections);
 	const predictions = useSelector((state) => state.predictions);
@@ -24,8 +25,8 @@ export default function Hand() {
 
 	function startVideo() {
 		console.log("video started");
-		if (video) {
-			handTrack.startVideo(video).then(function (status) {
+		if (video.current) {
+			handTrack.startVideo(video.current).then(function (status) {
 				console.log("video status", status);
 				if (status) {
 					// isVideo = true;
@@ -47,8 +48,8 @@ export default function Hand() {
 	// }
 
 	function runDetection() {
-		if (video) {
-			model.detect(video).then((predictions) => {
+		if (video.current) {
+			model.detect(video.current).then((predictions) => {
 				console.log("Predictions", predictions);
 
 				if (predictions.length >= 2) {
@@ -69,7 +70,7 @@ export default function Hand() {
 		// else {
 		// 		setInterval(runDetection, 1000);
 		// }
-	},[]);
+	},[video]);
 	// 	useEffect(()=>{
 	// 		if (model){
 	// runDetection();
@@ -83,7 +84,9 @@ export default function Hand() {
 			// detect objects in the image.
 			model = lmodel;
             // startVideo();
-            setInterval(runDetection, 1000);
+            clearInterval(id);
+            const newId = setInterval(runDetection, 1000);
+            setId(newId);
 			console.log("detection started");
 			// updateNote.innerText = "Loaded Model!";
 			// trackButton.disabled = false;
@@ -93,11 +96,11 @@ export default function Hand() {
 	return (
 		<div className="hand-video">
 			<video
+            ref ={video}
 				autoPlay="autoplay"
-                id="myvideo"
-                ref={myvideo}
+				id="myvideo"
 				width="100"
-				// style={{visibility: 'hidden'}}
+				style={{visibility: 'hidden'}}
 			></video>
 		</div>
 	);

@@ -30,6 +30,7 @@
   border: none;
   text-align: center;
   min-width: 35vw;
+  overflow-y: auto;
 }
 
 .header__right {
@@ -244,7 +245,7 @@ body {
 }
 
 .me__time {
-  color: lightblue;
+  color: lightgrey;
   font-weight: 300;
 }
 
@@ -261,6 +262,7 @@ body {
 
 .chat-input form input {
   position: relative;
+  border: none;
   width: 70%;
   border-radius: 2px;
   padding: 40px;
