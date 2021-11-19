@@ -11,17 +11,17 @@ export default function Header(){
     })
     return (
         <div className='header'>
-            <div className='header__left'>
+          
                 <Avatar className='header__avatar' alt = {user?.displayName} src ={user?.photoURL}/>
-                <AccessTimeIcon/>
-            </div>
-            <div className='header__search'>
+                <h2>{user?.displayName}</h2>
+          
+            {/* <div className='header__search'>
                 <SearchIcon/>
                 <input placeholder='smile to send, bad face to delete'></input>
             </div>
             <div className='header__right'>
                 <HelpOutlineIcon/>
-            </div>
+            </div> */}
         </div>
     )
 }

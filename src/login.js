@@ -22,7 +22,10 @@ export default function Login() {
 
                 <h1>Nice Chat</h1>
                 <Button onClick={signIn}>sign in with Google</Button>
-                <p>your camera will be turned on after login</p>
+                <p>Hi, I am Guitong.</p>
+                <p>Your camera will be turned on after login</p>
+                <p>You and your chatting partner need a Google Account to login</p>
+                
             </div>
         </div>
     );

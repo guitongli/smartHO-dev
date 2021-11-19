@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import FiberManualRecording from "@material-ui/icons/FiberManualRecord";
-import CreateIcon from "@material-ui/icons/Create";
+
 import InsertCommentIcon from "@material-ui/icons/InsertComment";
 import SidebarOption from "./sidebar-option";
 import InboxIcon from "@material-ui/icons/Inbox";
@@ -28,6 +27,7 @@ export default function Sidebar() {
         db.collection("chat").onSnapshot((snapshot) => {
             console.log('user email', user.email)
             const ownDocs = snapshot.docs.filter((doc)=>{
+                console.log('sender email', doc.data().sender);
                 return doc.data().sender === user.email || doc.data().getter===user.email
             })
             console.log('owndocs', ownDocs);
@@ -46,18 +46,8 @@ export default function Sidebar() {
     
     return (
         <div className="sidebar">
-            <div className="sidebar__header">
-                <div className="sidebar__info">
-                    <h3>
-                        <FiberManualRecording />
-                         
-                    </h3>
-                    <h2>{user?.displayName}</h2>
-                    
-                </div>
-                {/* <CreateIcon /> */}
-            </div>
-            {/* <SidebarOption Icon={ExpandMoreIcon} title="Show More" /> */}
+            <div className='first-column'>
+            
             {channels &&
                 channels.map((channel) => {
                     return (
@@ -74,9 +64,9 @@ export default function Sidebar() {
             <SidebarOption Icon={AddIcon} addChannelOption={true} />
             {/* {right && <VoiceChannel/>} */}
 
-                 
+                 </div>
                   
-                         <Face className='emoji-face' />
+                <div className='second-column'>  <Face className='emoji-face' /></div> 
         </div>
     );
 }

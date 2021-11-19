@@ -61,20 +61,37 @@ export default function Chat() {
         );
     },[roomMessages]);
 
+    function manualOn() {
+        document.getElementById('manual').style.visibility='visible';
+    };
+function manualOff() {
+        document.getElementById('manual').style.visibility='hidden';
+    };
     return (
         <div className="chat">
             <div className="chat__header">
                 <div className="chat__header__left">
                     <h4 className="chat__channel-name">
                         <strong># {roomDetails?.topic}</strong>
-                        <StarBorderOutlinedIcon />
+                       
                     </h4>
                 </div>
-                <div className="chat__header__right">
-                    <p>
-                        <InfoOutlinedIcon /> Details
-                    </p>
+                <div id='manual'>
+                    <p className = 'manual-x' onClick={manualOff}> x </p>
+                   <p > 1. Add a friend that has Gmail by clicking "+", put in alias and his/her email </p>
+                    <p >2. Click the channel </p>
+                    <p> 3. You can toggle between text input / voice input by open your mouth round 😮</p>
+                    <p >4. When in text input mode, press enter to send</p>
+                    <p> 5. When in voice input mode, raise your hands in the camera till there is 🗣</p>
+                   <p > 6. Talk, put down arms to stop voice recognition when you see 🙌🏻</p>
+                   <p>  7. Give a big smile 😀 to send this message or give a bad face 😢 to reenter this message</p>
+                   <p>  8. Your friend will see this when he / she logs into the app and clicks into this channel</p>
                 </div>
+                {<div className="chat__header__right">
+                    <p onClick={manualOn}>
+                        <InfoOutlinedIcon /> User Manual
+                    </p>
+                </div> }
             </div>
             <div className="chat__messages" ref={elemRef}>
                 {roomMessages &&
